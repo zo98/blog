@@ -1,0 +1,72 @@
+:root {
+  background-color: #f1f2f9;
+  font-size: 16px;
+  font-family: "PingFang SC", "Lantinghei SC", "Helvetica Neue", Helvetica, Arial, "Microsoft YaHei", 微软雅黑, STHeitiSC-Light, simsun, 宋体, "WenQuanYi Zen Hei", "WenQuanYi Micro Hei", sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+@import "./common.scss";
+
+
+
+@media screen and (max-width: 600px) {
+
+  .main {
+    margin: 0 auto;
+    display: flex;
+    // flex-wrap: wrap;
+    flex-direction: column;
+    padding: 10px;
+
+    &-content {
+      height: 1300px;
+      width: 100%;
+      @include shadow
+    }
+
+    &-menu {
+      width: 100%;
+      height: 400px;
+      @include shadow
+    }
+
+    &-siderbar {
+      width: 100%;
+    }
+  }
+}
+
+
+
+
+@media screen and (min-width:600px) {
+
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    padding: 50px;
+
+    &-content {
+      height: 1300px;
+      width: 65%;
+      @include shadow
+    }
+
+    &-menu {
+      width: 18%;
+      height: 400px;
+      margin-right: 20px;
+      @include shadow
+    }
+
+    &-siderbar {
+      width: 18%;
+      margin-left: 20px;
+    }
+  }
+}
