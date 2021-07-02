@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 export default (req, res) => {
-  res.status(200).json({ name: "zs", age: 31 });
+  res.status(200).json({ name: "张三", age: 31 });
 };

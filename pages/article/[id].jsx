@@ -1,10 +1,8 @@
 import SiderBar from "@/components/siderBar/siderBar";
 import SiderBarList from "@/components/siderBar/siderBarList";
 import Content from "@/components/content/content";
-import ContentWaterfall from "@/components/content/contentWaterfall";
-import LatestArticle from "@/components/content/contentLatestArticle";
-import Recommend from "@/components/content/contentRecommend";
 import Header from "@/components/header/index";
+import Article from "@/components/article/index";
 export default function Index(props) {
   console.log(props);
   return (
@@ -14,9 +12,7 @@ export default function Index(props) {
       </div>
       <div className="main-content">
         <Content>
-          <ContentWaterfall />
-          <LatestArticle />
-          <Recommend />
+          <Article />
         </Content>
       </div>
       <div className="main-siderbar">
