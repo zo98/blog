@@ -7,6 +7,7 @@
 ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 a {
@@ -28,7 +29,18 @@ a {
   clear: both;
 }
 
+html,
+body,
+#__next {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: #f1f2f9;
+}
+
+
 @import "./common.scss";
+@import '~antd/dist/antd.css';
 
 
 
@@ -37,7 +49,6 @@ a {
   .main {
     margin: 0 auto;
     display: flex;
-    // flex-wrap: wrap;
     flex-direction: column;
     padding: 10px;
 
@@ -64,15 +75,15 @@ a {
 @media screen and (min-width:600px) {
 
   .main {
-    max-width: 1200px;
+    // max-width: 1200px;
     margin: 0 auto;
     display: flex;
     align-items: flex-start;
-    padding: 50px;
+    padding: 3.125rem;
 
     &-content {
       width: 65%;
-      @include shadow
+
     }
 
     &-menu {

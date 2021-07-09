@@ -1,5 +1,5 @@
 import styles from "@/cStyles/header/index.module.scss";
-export default function Index() {
+export default function Index(props) {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -7,8 +7,8 @@ export default function Index() {
           <img src="/imgs/2.jpeg" alt="" />
         </div>
         <div className={styles.describe}>
-          <p>Blog11111111111111111111111</p>
-          <p>Blog网站1111111111111111111111111111111</p>
+          <p>Blog</p>
+          <p>Blog网站</p>
         </div>
         <div className={styles.contact}>
           <a href="" title="微博">

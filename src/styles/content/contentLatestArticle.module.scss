@@ -41,6 +41,11 @@
       &_content {
         font-size: .875rem;
         color: #666;
+        margin: 10px 0;
+
+        * {
+          display: inline;
+        }
       }
 
       &_footer {

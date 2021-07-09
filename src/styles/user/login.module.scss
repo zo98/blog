@@ -1,0 +1,16 @@
+.container {
+  height: 100%;
+  width: 100%;
+  background: url('/imgs/bg.svg');
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .login {
+    width: 330px;
+  }
+
+  .login_btn {
+    width: 100%;
+  }
+}

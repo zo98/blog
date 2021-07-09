@@ -5,30 +5,48 @@ import ContentWaterfall from "@/components/content/contentWaterfall";
 import LatestArticle from "@/components/content/contentLatestArticle";
 import Recommend from "@/components/content/contentRecommend";
 import Header from "@/components/header/index";
+import autoRem from "@/common/autoRem";
+import React from "react";
+import axios from "axios";
+export const { Provider, Consumer } = React.createContext();
 export default function Index(props) {
-  console.log(props);
+  autoRem();
+
   return (
     <main className="main">
       <div className="main-menu">
         <Header />
       </div>
       <div className="main-content">
-        <Content>
-          <ContentWaterfall />
-          <LatestArticle />
-          <Recommend />
-        </Content>
+        <Provider value={{ data: props.data }}>
+          <Content>
+            <ContentWaterfall />
+            <LatestArticle />
+            <Recommend />
+          </Content>
+        </Provider>
       </div>
       <div className="main-siderbar">
-        <SiderBar>
-          <SiderBarList />
-        </SiderBar>
+        <ul style={{ position: "fixed" }}>
+          <li>
+            <SiderBar title="分类目录">
+              <SiderBarList />
+            </SiderBar>
+          </li>
+          <li style={{ marginTop: "15px" }}>
+            <SiderBar title="近期文章">
+              <SiderBarList />
+            </SiderBar>
+          </li>
+        </ul>
       </div>
     </main>
   );
 }
+
 export async function getServerSideProps() {
-  const res = await fetch("http://localhost:3000/api/hello");
-  const data = await res.json();
-  return { props: { data } };
+  const { data } = await axios({
+    url: "http://localhost:8000/api/article/getArticle",
+  });
+  return { props: { data: data.data } };
 }
