@@ -1,5 +1,14 @@
 const path = require("path");
 module.exports = {
+  // 代理
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: "http://localhost:8000/api/:path*",
+      },
+    ];
+  },
   pageExtensions: ["jsx", "js"],
   webpack: (config) => {
     config.resolve.alias = {

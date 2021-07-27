@@ -7,7 +7,7 @@ import Recommend from "@/components/content/contentRecommend";
 import Header from "@/components/header/index";
 import autoRem from "@/common/autoRem";
 import React from "react";
-import axios from "axios";
+
 export const { Provider, Consumer } = React.createContext();
 export default function Index(props) {
   autoRem();
@@ -45,8 +45,7 @@ export default function Index(props) {
 }
 
 export async function getServerSideProps() {
-  const { data } = await axios({
-    url: "http://localhost:3000/api/article/getArticle",
-  });
-  return { props: { data: data.data } };
+  let res = await fetch("http://localhost:8000/api/article/getArticle");
+  res = await res.json();
+  return { props: { data: res.data } };
 }
