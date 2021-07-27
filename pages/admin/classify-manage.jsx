@@ -2,6 +2,7 @@ import React from "react";
 import { Table, Button } from "antd";
 import { useState, useEffect } from "react";
 import axios from "@/http/service";
+const dayjs = require("@/common/dayjs");
 import dynamic from "next/dynamic";
 // 动态引入
 const Menu = dynamic(() => import("@/components/menu/index.jsx"), {
@@ -17,7 +18,7 @@ export default function ClassifyManage() {
       title: "创建时间",
       dataIndex: "create_time",
       render(val) {
-        return 123;
+        return dayjs(val).format("YYYY/MM/DD HH:mm:ss");
       },
     },
     {

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Row, Col, Input, Select, Form, Button, Space } from "antd";
 import dynamic from "next/dynamic";
 import axios from "@/http/service";
+
 const { Option } = Select;
 const Menu = dynamic(() => import("@/components/menu/index.jsx"), {
   ssr: false,
