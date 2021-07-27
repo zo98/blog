@@ -46,7 +46,7 @@ export default function Index(props) {
 
 export async function getServerSideProps() {
   const { data } = await axios({
-    url: "http://localhost:8000/api/article/getArticle",
+    url: "http://localhost:3000/api/article/getArticle",
   });
   return { props: { data: data.data } };
 }

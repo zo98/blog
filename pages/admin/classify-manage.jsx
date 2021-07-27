@@ -1,5 +1,5 @@
 import React from "react";
-import { Table } from "antd";
+import { Table, Button } from "antd";
 import { useState, useEffect } from "react";
 import axios from "@/http/service";
 import dynamic from "next/dynamic";
@@ -16,35 +16,45 @@ export default function ClassifyManage() {
     {
       title: "创建时间",
       dataIndex: "create_time",
-      render() {
+      render(val) {
         return 123;
       },
     },
     {
       title: "修改时间",
-      dataIndex: "age",
+      dataIndex: "update_time",
     },
     {
       title: "操作",
-      dataIndex: "age",
+      render() {
+        return <Button>删除</Button>;
+      },
     },
   ];
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(async () => {
     try {
+      setLoading(true);
       const { data } = await axios({
         url: "/api/classify/getClassify",
       });
+      setLoading(false);
       if (data.code) {
-        setData(data.data);
+        setData(data.data.records);
       }
-      console.log(data);
+      // console.log(data);
     } catch (error) {}
   }, []);
   return (
     <Menu>
       <div>分类</div>
-      <Table rowKey="id" columns={columns} dataSource={data} />
+      <Table
+        loading={loading}
+        rowKey="id"
+        columns={columns}
+        dataSource={data}
+      />
     </Menu>
   );
 }

@@ -31,7 +31,7 @@ export default function ArticleEdit() {
     try {
       const { data } = await axios.get("/api/classify/getClassify");
       if (data.code) {
-        setOptions(data.data);
+        setOptions(data.data.records);
       }
     } catch (error) {}
   }, []);
