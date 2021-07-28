@@ -1,5 +1,7 @@
 const path = require("path");
 module.exports = {
+  // 压缩
+  compress: true,
   // 代理
   async rewrites() {
     return [

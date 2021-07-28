@@ -7,40 +7,45 @@ import Recommend from "@/components/content/contentRecommend";
 import Header from "@/components/header/index";
 import autoRem from "@/common/autoRem";
 import React from "react";
-
+import Head from "next/head";
 export const { Provider, Consumer } = React.createContext();
 export default function Index(props) {
   autoRem();
 
   return (
-    <main className="main">
-      <div className="main-menu">
-        <Header />
-      </div>
-      <div className="main-content">
-        <Provider value={{ data: props.data }}>
-          <Content>
-            <ContentWaterfall />
-            <LatestArticle />
-            <Recommend />
-          </Content>
-        </Provider>
-      </div>
-      <div className="main-siderbar">
-        <ul style={{ position: "fixed" }}>
-          <li>
-            <SiderBar title="分类目录">
-              <SiderBarList />
-            </SiderBar>
-          </li>
-          <li style={{ marginTop: "15px" }}>
-            <SiderBar title="近期文章">
-              <SiderBarList />
-            </SiderBar>
-          </li>
-        </ul>
-      </div>
-    </main>
+    <>
+      <Head>
+        <script async src="/tinymce/tinymce.min.js" />
+      </Head>
+      <main className="main">
+        <div className="main-menu">
+          <Header />
+        </div>
+        <div className="main-content">
+          <Provider value={{ data: props.data }}>
+            <Content>
+              <ContentWaterfall />
+              <LatestArticle />
+              <Recommend />
+            </Content>
+          </Provider>
+        </div>
+        <div className="main-siderbar">
+          <ul style={{ position: "fixed" }}>
+            <li>
+              <SiderBar title="分类目录">
+                <SiderBarList />
+              </SiderBar>
+            </li>
+            <li style={{ marginTop: "15px" }}>
+              <SiderBar title="近期文章">
+                <SiderBarList />
+              </SiderBar>
+            </li>
+          </ul>
+        </div>
+      </main>
+    </>
   );
 }
 
