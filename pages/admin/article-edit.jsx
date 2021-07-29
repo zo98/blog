@@ -1,7 +1,6 @@
 import { Row, Col, Input, Select, Form, Button, Space } from "antd";
 import dynamic from "next/dynamic";
 import axios from "@/http/service";
-import Head from "next/head";
 import { Editor } from "@tinymce/tinymce-react";
 import React, { Component } from "react";
 const Menu = dynamic(() => import("@/components/menu/index.jsx"), {
@@ -13,6 +12,7 @@ export default class ArticleEdit extends Component {
     super(props);
     this.state = {
       value: "",
+      editValue: "<p>hello</p>",
       options: [],
       optionsLoading: false,
       pages: {
@@ -66,7 +66,7 @@ export default class ArticleEdit extends Component {
       });
       if (data.code) {
         let temp = data.data.records.map((item) => ({
-          label: item.classify_name,
+          label: item.name,
           value: item.id,
         }));
 
@@ -88,9 +88,6 @@ export default class ArticleEdit extends Component {
   render() {
     return (
       <>
-        <Head>
-          <script src="/tinymce/tinymce.min.js"></script>
-        </Head>
         <Menu>
           <Row gutter={[20, 30]}>
             <Col span={24}>
@@ -121,6 +118,7 @@ export default class ArticleEdit extends Component {
             </Col>
             <Col span={24}>
               <Editor
+                value={this.state.editValue}
                 init={{
                   menubar: true,
                   toolbar: true,

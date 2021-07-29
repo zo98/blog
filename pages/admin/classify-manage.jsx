@@ -13,7 +13,7 @@ export default function ClassifyManage() {
   const columns = [
     {
       title: "分类名称",
-      dataIndex: "classify_name",
+      dataIndex: "name",
       align: "center",
     },
     {
