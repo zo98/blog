@@ -12,8 +12,13 @@ const Menu = dynamic(() => import("@/components/menu/index.jsx"), {
 export default function ClassifyManage() {
   const columns = [
     {
-      title: "分类名称",
-      dataIndex: "name",
+      title: "标题",
+      dataIndex: "title",
+      align: "center",
+    },
+    {
+      title: "分类",
+      dataIndex: "classify_name",
       align: "center",
     },
     {
@@ -61,7 +66,7 @@ export default function ClassifyManage() {
       setLoading(true);
       const { pageSize, currentPage } = pages;
       const { data } = await axios({
-        url: "/api/classify/getClassify",
+        url: "/api/article/getArticle",
         params: {
           pageSize,
           currentPage,
@@ -113,11 +118,7 @@ export default function ClassifyManage() {
         <Row>
           <Col span="24"></Col>
           <Col span="5">
-            <Search
-              value={value}
-              onChange={inputChange}
-              placeholder="分类名称"
-            />
+            <Search value={value} onChange={inputChange} placeholder="标题" />
           </Col>
         </Row>
         <Table

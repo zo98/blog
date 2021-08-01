@@ -1,28 +1,7 @@
-import React from "react";
-import { Table } from "antd";
 import dynamic from "next/dynamic";
-const Menu = dynamic(() => import("@/components/menu/index.jsx"), {
+const Page = dynamic(() => import("@/components/admin/article-manage.jsx"), {
   ssr: false,
 });
 export default function ArticleManage() {
-  const columns = [
-    {
-      title: "Name",
-      dataIndex: "name",
-    },
-    {
-      title: "Age",
-      dataIndex: "age",
-    },
-    {
-      title: "Address",
-      dataIndex: "address",
-    },
-  ];
-  return (
-    <Menu>
-      <div>管理</div>
-      <Table />
-    </Menu>
-  );
+  return <Page />;
 }

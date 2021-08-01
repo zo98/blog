@@ -50,7 +50,11 @@ export default function Index(props) {
 }
 
 export async function getServerSideProps() {
-  let res = await fetch("http://localhost:8000/api/article/getArticle");
-  res = await res.json();
-  return { props: { data: res.data } };
+  try {
+    let res = await fetch("http://localhost:8000/api/article/getArticle");
+    res = await res.json();
+    return { props: { data: res.data.records } };
+  } catch (error) {
+    return { props: { data: [] } };
+  }
 }

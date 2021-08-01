@@ -124,8 +124,8 @@ export default function Index(props) {
                 <span>7398</span>
               </li>
             </ul>
-            <div className={styles.divider}></div>
-            <div dangerouslySetInnerHTML={{ __html: item.content }}></div>
+            <div className={styles.divider} />
+            <div dangerouslySetInnerHTML={{ __html: item.content }} />
           </div>
         ))
       }
