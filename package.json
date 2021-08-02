@@ -11,6 +11,7 @@
     "@tinymce/tinymce-react": "^3.12.6",
     "antd": "^4.16.5",
     "axios": "^0.21.1",
+    "clamp-js": "^0.7.0",
     "dayjs": "^1.10.5",
     "next": "10.2.3",
     "node-sass": "4.14.1",

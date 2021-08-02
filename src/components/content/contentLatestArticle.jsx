@@ -1,5 +1,7 @@
 import styles from "@/cStyles/content/contentLatestArticle.module.scss";
 import { Consumer } from "@/pages/index.jsx";
+import dayjs from "dayjs";
+import clamp from "clamp-js";
 export default function contentLatestArticle(props) {
   return (
     <div className={styles.article}>
@@ -16,7 +18,10 @@ export default function contentLatestArticle(props) {
                   <main
                     className={styles.item_content}
                     dangerouslySetInnerHTML={{
-                      __html: item.preview_content + " <p>......</p>",
+                      __html: item.preview_content,
+                    }}
+                    ref={(node) => {
+                      clamp(node, { clamp: 3 });
                     }}
                   ></main>
                 </a>
@@ -39,8 +44,8 @@ export default function contentLatestArticle(props) {
                 </a>
 
                 <div className={styles.item_footer}>
-                  <label>心情随笔 </label>
-                  <time> 2020-01-20</time>
+                  <label>{item.classify_name} </label>
+                  <time>{dayjs(item.create_time).format("YYYY-MM-DD")}</time>
                 </div>
               </div>
             ))

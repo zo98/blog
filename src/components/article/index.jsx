@@ -1,5 +1,6 @@
 import styles from "@/cStyles/article/index.module.scss";
 import { Consumer } from "@/pages/article/[id].jsx";
+import dayjs from "dayjs";
 export default function Index(props) {
   return (
     <Consumer>
@@ -28,7 +29,7 @@ export default function Index(props) {
                     p-id="2679"
                   ></path>
                 </svg>
-                <span>zo</span>
+                <span>{item.author}</span>
               </li>
               <li className={styles.item}>
                 <svg
@@ -55,7 +56,7 @@ export default function Index(props) {
                     fill="#666666"
                   ></path>
                 </svg>
-                <span>心情随笔</span>
+                <span>{item.classify_name}</span>
               </li>
               <li className={styles.item}>
                 <svg
@@ -77,7 +78,7 @@ export default function Index(props) {
                     p-id="4117"
                   ></path>
                 </svg>
-                <span>2020-01-20</span>
+                <span>{dayjs(item.create_time).format("YYYY-MM-DD")}</span>
               </li>
               <li className={styles.item}>
                 <svg
@@ -99,7 +100,7 @@ export default function Index(props) {
                     p-id="5693"
                   ></path>
                 </svg>
-                <span>7398</span>
+                <span>0</span>
               </li>
               <li className={styles.item}>
                 <svg
@@ -121,7 +122,7 @@ export default function Index(props) {
                     p-id="6511"
                   ></path>
                 </svg>
-                <span>7398</span>
+                <span>0</span>
               </li>
             </ul>
             <div className={styles.divider} />

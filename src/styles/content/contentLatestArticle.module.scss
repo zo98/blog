@@ -39,12 +39,17 @@
       }
 
       &_content {
-        font-size: .875rem;
+        line-height: 2 !important;
         color: #666;
         margin: 10px 0;
 
         * {
           display: inline;
+          font-size: .875rem !important;
+        }
+
+        br {
+          display: none !important;
         }
       }
 
@@ -52,6 +57,10 @@
         color: #888;
         font-size: .75rem;
         margin: 10px 0;
+
+        >* {
+          margin-right: 10px;
+        }
       }
 
       .imgs {
