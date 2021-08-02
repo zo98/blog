@@ -3,28 +3,40 @@ import { Table, Button, Row, Col, Input, Space } from "antd";
 import { useState, useEffect } from "react";
 import axios from "@/http/service";
 const dayjs = require("dayjs");
+import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
+import clamp from "clamp-js";
 const { Search } = Input;
 // 动态引入
 const Menu = dynamic(() => import("@/components/menu/index.jsx"), {
   ssr: false,
 });
-export default function ClassifyManage() {
+export default function ClassifyManage(props) {
+  const router = useRouter();
   const columns = [
     {
       title: "标题",
       dataIndex: "title",
       align: "center",
+      ellipsis: true,
     },
     {
       title: "分类",
       dataIndex: "classify_name",
       align: "center",
+      ellipsis: true,
+    },
+    {
+      title: "预览",
+      dataIndex: "preview_content",
+      align: "center",
+      ellipsis: true,
     },
     {
       title: "创建时间",
       dataIndex: "create_time",
       align: "center",
+      ellipsis: true,
       render(val) {
         if (val) {
           return dayjs(val).format("YYYY/MM/DD HH:mm:ss");
@@ -36,6 +48,7 @@ export default function ClassifyManage() {
       title: "修改时间",
       dataIndex: "update_time",
       align: "center",
+      ellipsis: true,
       render(val) {
         if (val) {
           return dayjs(val).format("YYYY/MM/DD HH:mm:ss");
@@ -46,10 +59,22 @@ export default function ClassifyManage() {
     {
       title: "操作",
       align: "center",
-      render() {
+      dataIndex: "id",
+      ellipsis: true,
+      render(id) {
         return (
           <Space>
-            <Button size="small">编辑</Button>
+            <Button
+              size="small"
+              onClick={() => {
+                router.push({
+                  pathname: "/admin/article-manage",
+                  query: { id },
+                });
+              }}
+            >
+              编辑
+            </Button>
             <Button danger size="small">
               删除
             </Button>
@@ -116,8 +141,7 @@ export default function ClassifyManage() {
     <Menu>
       <Space size={18} direction="vertical" style={{ width: "100%" }}>
         <Row>
-          <Col span="24"></Col>
-          <Col span="5">
+          <Col span={5}>
             <Search value={value} onChange={inputChange} placeholder="标题" />
           </Col>
         </Row>

@@ -42,13 +42,15 @@
         line-height: 2 !important;
         color: #666;
         margin: 10px 0;
+        letter-spacing: 2px;
 
         * {
           display: inline;
           font-size: .875rem !important;
         }
 
-        br {
+        br,
+        img {
           display: none !important;
         }
       }
