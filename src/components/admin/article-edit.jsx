@@ -14,6 +14,7 @@ import axios from "@/http/service";
 import React, { Component } from "react";
 import Menu from "@/components/menu/index.jsx";
 import Editor from "@/components/TinymceEditor.jsx";
+// import Editor from "@/components/CKEditor.jsx";
 class ArticleEdit extends Component {
   constructor(props) {
     super(props);
