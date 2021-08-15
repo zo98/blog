@@ -24,12 +24,12 @@ export default function Index(props) {
           <ul style={{ position: "fixed" }}>
             <li>
               <SiderBar title="分类目录">
-                <SiderBarList />
+                <SiderBarList type="classify" />
               </SiderBar>
             </li>
             <li style={{ marginTop: "15px" }}>
               <SiderBar title="近期文章">
-                <SiderBarList />
+                <SiderBarList type="article" />
               </SiderBar>
             </li>
           </ul>

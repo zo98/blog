@@ -14,9 +14,6 @@ export default function Index(props) {
 
   return (
     <>
-      <Head>
-        <script async src="/tinymce/tinymce.min.js" />
-      </Head>
       <main className="main">
         <div className="main-menu">
           <Header />
@@ -34,12 +31,12 @@ export default function Index(props) {
           <ul style={{ position: "fixed" }}>
             <li>
               <SiderBar title="分类目录">
-                <SiderBarList />
+                <SiderBarList type="classify" data={props.classify_data} />
               </SiderBar>
             </li>
             <li style={{ marginTop: "15px" }}>
               <SiderBar title="近期文章">
-                <SiderBarList />
+                <SiderBarList type="article" data={props.data} />
               </SiderBar>
             </li>
           </ul>
@@ -50,11 +47,24 @@ export default function Index(props) {
 }
 
 export async function getServerSideProps() {
+  const article = fetch("http://localhost:8000/api/article/getArticle").then(
+    (res) => res.json()
+  );
+  const classify = fetch(
+    "http://localhost:8000/api/classify/hotClassify?pageSize=5"
+  ).then((res) => res.json());
   try {
-    let res = await fetch("http://localhost:8000/api/article/getArticle");
-    res = await res.json();
-    return { props: { data: res.data.records } };
+    const [res1, res2] = await Promise.all([article, classify]);
+    let data = [],
+      classify_data = [];
+    if (res1.code === 1) {
+      data = res1.data.records;
+    }
+    if (res2.code === 1) {
+      classify_data = res2.data.records;
+    }
+    return { props: { data, classify_data } };
   } catch (error) {
-    return { props: { data: [] } };
+    return { props: { data: [], classify: [] } };
   }
 }

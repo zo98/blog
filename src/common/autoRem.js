@@ -1,6 +1,18 @@
 import { useEffect } from "react";
 
 export default function AutoRem(props) {
+  const core = () => {
+    const root = document.documentElement;
+    const screen = document.body.clientWidth;
+    let fontSize = screen * (16 / 1292);
+    if (fontSize < 12) {
+      fontSize = 12;
+    }
+    if (fontSize > 24) {
+      fontSize = 24;
+    }
+    root.style.fontSize = `${fontSize}px`;
+  };
   const resize = (time) => {
     let timer = null;
     return () => {
@@ -8,18 +20,14 @@ export default function AutoRem(props) {
         clearTimeout(timer);
       }
       timer = setTimeout(() => {
-        const root = document.documentElement;
-        const screen = document.body.clientWidth;
-        root.style.fontSize = `${screen * (16 / 1292)}px`;
+        core();
         timer = null;
       }, time);
     };
   };
 
   useEffect(() => {
-    const root = document.documentElement;
-    const screen = document.body.clientWidth;
-    root.style.fontSize = `${screen * (16 / 1292)}px`;
+    core();
     window.addEventListener("resize", resize(10)), [];
   });
 }

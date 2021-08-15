@@ -15,4 +15,8 @@ export default [
     path: "/admin/article-manage",
     name: "文章管理",
   },
+  {
+    path: "/admin/system-manage",
+    name: "系统管理",
+  },
 ];

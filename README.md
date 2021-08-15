@@ -10,7 +10,7 @@ yarn
 yarn run dev 
 ```
 
-```bas
+```bash
 yarn run start
 ```
 

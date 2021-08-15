@@ -100,7 +100,7 @@ export default function Index(props) {
                     p-id="5693"
                   ></path>
                 </svg>
-                <span>0</span>
+                <span>{item.views}</span>
               </li>
               <li className={styles.item}>
                 <svg
@@ -122,7 +122,7 @@ export default function Index(props) {
                     p-id="6511"
                   ></path>
                 </svg>
-                <span>0</span>
+                <span>{item.likes}</span>
               </li>
             </ul>
             <div className={styles.divider} />
