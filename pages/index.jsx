@@ -19,10 +19,10 @@ export default function Index(props) {
           <Header />
         </div>
         <div className="main-content">
-          <Provider value={{ data: props.data }}>
+          <Provider value={{ data: props.data, pages: props.pages }}>
             <Content>
               <ContentWaterfall />
-              <LatestArticle />
+              <LatestArticle data={props.data} pages={props.pages} />
               <Recommend />
             </Content>
           </Provider>
@@ -36,7 +36,7 @@ export default function Index(props) {
             </li>
             <li style={{ marginTop: "15px" }}>
               <SiderBar title="近期文章">
-                <SiderBarList type="article" data={props.data} />
+                <SiderBarList type="article" data={props.articles} />
               </SiderBar>
             </li>
           </ul>
@@ -56,15 +56,27 @@ export async function getServerSideProps() {
   try {
     const [res1, res2] = await Promise.all([article, classify]);
     let data = [],
-      classify_data = [];
+      classify_data = [],
+      articles = [],
+      pages = {};
     if (res1.code === 1) {
-      data = res1.data.records;
+      const { records, total, pageSize, currentPage } = res1.data;
+      data = records;
+      pages = {
+        total,
+        pageSize,
+        currentPage,
+      };
     }
     if (res2.code === 1) {
       classify_data = res2.data.records;
     }
-    return { props: { data, classify_data } };
+    articles = [...data];
+    if (articles && articles.length > 5) {
+      articles = articles.splice(0, 5);
+    }
+    return { props: { data, classify_data, articles, pages } };
   } catch (error) {
-    return { props: { data: [], classify: [] } };
+    return { props: { data: [], classify: [], articles: [], pages: {} } };
   }
 }

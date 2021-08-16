@@ -1,9 +1,11 @@
 import styles from "@/cStyles/content/contentLatestArticle.module.scss";
-import React from "react";
-import { Consumer } from "@/pages/index.jsx";
+import React, { useState } from "react";
 import dayjs from "dayjs";
 import clamp from "clamp-js";
+import axios from "@/http/service";
 export default function contentLatestArticle(props) {
+  const [data, setData] = useState([...props.data]);
+  const [pages, setPages] = useState({ ...props.pages });
   const renderImgs = (imgs) => {
     if (imgs.length > 3) {
       imgs.length = 3;
@@ -19,7 +21,7 @@ export default function contentLatestArticle(props) {
     ));
   };
   const renderViews = (data) => {
-    return data.data.map((item) => {
+    return data.map((item) => {
       return (
         <div
           key={item.id}
@@ -34,9 +36,9 @@ export default function contentLatestArticle(props) {
                   dangerouslySetInnerHTML={{
                     __html: item.preview_content,
                   }}
-                  ref={(node) => {
-                    clamp(node, { clamp: 3 });
-                  }}
+                  // ref={(node) => {
+                  //   clamp(node, { clamp: 3 });
+                  // }}
                 ></main>
               </a>
               <a href={`/article/${item.id}`}>
@@ -52,9 +54,9 @@ export default function contentLatestArticle(props) {
                   dangerouslySetInnerHTML={{
                     __html: item.preview_content,
                   }}
-                  ref={(node) => {
-                    clamp(node, { clamp: 3 });
-                  }}
+                  // ref={(node) => {
+                  //   clamp(node, { clamp: 3 });
+                  // }}
                 ></main>
               </a>
               <a href={`/article/${item.id}`}>
@@ -71,16 +73,23 @@ export default function contentLatestArticle(props) {
       );
     });
   };
+  const loadMoreData = () => {
+    setPages({ ...pages });
+  };
+
   return (
     <div className={styles.article}>
       <div className={styles.title}>
         <span>最新文章</span>
       </div>
+      <div className={styles.wrapper}>{renderViews(data)}</div>
       <div className={styles.wrapper}>
-        <Consumer>{(data) => renderViews(data)}</Consumer>
-      </div>
-      <div className={styles.wrapper}>
-        <button>加载更多</button>
+        {/* {renderViews(moreData)} */}
+        {pages.total > pages.currentPage * pages.pageSize ? (
+          <button onClick={loadMoreData}>加载更多</button>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

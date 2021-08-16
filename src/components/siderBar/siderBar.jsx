@@ -1,6 +1,5 @@
 import styles from "@/cStyles/siderbar/siderBar.module.scss";
 export default function Siderbar(props) {
-  console.log(props);
   return (
     <div className={styles.wrapper} style={{ width: props.siderBarWidth }}>
       <div className={styles.header}>
