@@ -1,5 +1,5 @@
 import styles from "@/cStyles/content/contentLatestArticle.module.scss";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import clamp from "clamp-js";
 import axios from "@/http/service";
@@ -32,13 +32,10 @@ export default function contentLatestArticle(props) {
               <a href={`/article/${item.id}`}>
                 <h1 className={styles.item_title}>{item.title}</h1>
                 <main
-                  className={styles.item_content}
+                  className={`${styles.item_content} item_content`}
                   dangerouslySetInnerHTML={{
                     __html: item.preview_content,
                   }}
-                  // ref={(node) => {
-                  //   clamp(node, { clamp: 3 });
-                  // }}
                 ></main>
               </a>
               <a href={`/article/${item.id}`}>
@@ -50,13 +47,10 @@ export default function contentLatestArticle(props) {
               <a href={`/article/${item.id}`}>
                 <h1 className={styles.item_title}>{item.title}</h1>
                 <main
-                  className={styles.item_content}
+                  className={`${styles.item_content} item_content`}
                   dangerouslySetInnerHTML={{
                     __html: item.preview_content,
                   }}
-                  // ref={(node) => {
-                  //   clamp(node, { clamp: 3 });
-                  // }}
                 ></main>
               </a>
               <a href={`/article/${item.id}`}>
@@ -76,7 +70,11 @@ export default function contentLatestArticle(props) {
   const loadMoreData = () => {
     setPages({ ...pages });
   };
-
+  useEffect(() => {
+    [...document.getElementsByClassName("item_content")].forEach((node) => {
+      clamp(node, { clamp: 3 });
+    });
+  }, []);
   return (
     <div className={styles.article}>
       <div className={styles.title}>
