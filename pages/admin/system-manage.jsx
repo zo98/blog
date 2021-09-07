@@ -10,7 +10,7 @@ export default class System_manage extends Component {
   render() {
     return (
       <Menu>
-        
+        <div>系统管理</div>
       </Menu>
     )
   }

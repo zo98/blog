@@ -4,38 +4,36 @@ import Content from "@/components/content/content";
 import Header from "@/components/header/index";
 import Article from "@/components/article/index";
 import autoRem from "@/common/autoRem";
-import axios from "axios";
 import React from "react";
-export const { Provider, Consumer } = React.createContext();
 export default function Index(props) {
   autoRem();
   return (
-    <Provider value={{ data: props.data }}>
+
       <main className="main">
         <div className="main-menu">
-          <Header />
+          <Header data={props.homeData.config} />
         </div>
         <div className="main-content">
           <Content>
-            <Article />
+            <Article data={props.data}/>
           </Content>
         </div>
         <div className="main-siderbar">
           <ul style={{ position: "fixed" }}>
             <li>
               <SiderBar title="分类目录">
-                <SiderBarList type="classify" data={props.classify_data} />
+                <SiderBarList type="classify" data={props.homeData.classify} />
               </SiderBar>
             </li>
             <li style={{ marginTop: "15px" }}>
               <SiderBar title="近期文章">
-                <SiderBarList type="article" data={props.articles_data} />
+                <SiderBarList type="article" data={props.homeData.article} />
               </SiderBar>
             </li>
           </ul>
         </div>
       </main>
-    </Provider>
+   
   );
 }
 
@@ -45,29 +43,23 @@ export async function getServerSideProps(context) {
     `http://localhost:8000/api/article/getArticle?id=${id}`
   ).then((res) => res.json());
 
-  const articles = fetch("http://localhost:8000/api/article/getArticle").then(
-    (res) => res.json()
+  const home = fetch("http://localhost:8000/api/blogdata").then((res) =>
+    res.json()
   );
-  const classify = fetch(
-    "http://localhost:8000/api/classify/hotClassify?pageSize=5"
-  ).then((res) => res.json());
+
+  let data = [],
+    homeData = [];
   try {
-    const [res1, res2, res3] = await Promise.all([article, classify, articles]);
-    let data = [],
-      classify_data = [],
-      articles_data = [];
-    if (res1.code === 1) {
+    const [res1, res2] = await Promise.all([article, home]);
+
+    if (res1.code) {
       data = res1.data;
     }
-    if (res2.code === 1) {
-      classify_data = res2.data.records;
+    if (res2.code) {
+      homeData = res2.data;
     }
-    if (res3.code === 1) {
-      articles_data = res3.data.records;
-    }
-    return { props: { data, classify_data, articles_data } };
+    return { props: { data, homeData } };
   } catch (error) {
-    console.log(error);
-    return { props: { data: [], classify_data: [], articles_data: [] } };
+    return { props: { data, homeData } };
   }
 }

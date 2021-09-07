@@ -6,8 +6,8 @@ export default function SiderbarList(props) {
     switch (type) {
       case "classify":
         return data.map((item) => (
-          <li key={item.id} className={styles.item}>
-            <a href={`/${item.id}`}>{item.name}</a>
+          <li key={item.classify_id} className={styles.item}>
+            <a href={`/classify/${item.classify_id}`}>{item.classify_name}</a>
           </li>
         ));
       case "article":

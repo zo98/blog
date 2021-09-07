@@ -1,69 +1,100 @@
 import styles from "@/cStyles/content/contentWaterfall.module.scss";
-import { Consumer } from "@/pages/index.jsx";
-export default function contentWaterfall(props) {
-  return (
-    <div className={styles.wrapper}>
-      <Consumer>
-        {(data) => {
-          // console.log(data);
-          return (
-            <>
-              <div className={styles.left}>
-                <div className={styles.item}>
-                  <a
-                    href="/"
-                    className={styles.cover}
-                    style={{ backgroundImage: 'url("/imgs/1.jpg")' }}
-                  >
-                    <div>
-                      <div className={styles.mask}></div>
-                      <div className={styles.text}>
-                        <h1>剪影流殇，光影华年</h1>
-                        <p>
-                          染指流沙，回绕不尽的世界繁华；
-                          青灯孤伴，镌刻不完的午夜落花；
-                          锦帛残卷，撰写不到的城南旧事； 蓦然...
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div className={styles.right}>
-                <div className={styles.item}>
-                  <a
-                    href="/"
-                    className={styles.cover}
-                    style={{ backgroundImage: 'url("/imgs/1.jpg")' }}
-                  >
-                    <div>
-                      <div className={styles.mask}></div>
-                      <div className={styles.text}>
-                        <h1>剪影流殇，光影华年</h1>
-                      </div>
-                    </div>
-                  </a>
-                </div>
+import { useEffect } from "react";
+import clamp from "clamp-js";
 
-                <div className={styles.item}>
-                  <a
-                    href="/"
-                    className={styles.cover}
-                    style={{ backgroundImage: 'url("/imgs/1.jpg")' }}
-                  >
-                    <div>
-                      <div className={styles.mask}></div>
-                      <div className={styles.text}>
-                        <h1>剪影流殇，光影华年</h1>
-                      </div>
-                    </div>
-                  </a>
+export default function contentWaterfall(props) {
+  useEffect(() => {
+    [...document.getElementsByClassName("preview_content")].forEach((node) => {
+      clamp(node, { clamp: 3 });
+    });
+  }, [props.data]);
+
+  const onClick = (e, id) => {
+    e.preventDefault();
+    console.log(e, id);
+  };
+
+  const renderViews = (data) => {
+    if (data.length <= 2) {
+      return data.map((item) => {
+        return (
+          <div key={item.id} className={styles.left}>
+            <div className={styles.item}>
+              <a
+                href={`/article/${item.id}`}
+                onClick={(e) => {
+                  onClick(e, item.id);
+                }}
+                className={styles.cover}
+                style={{ backgroundImage: 'url("/imgs/1.jpg")' }}
+              >
+                <div>
+                  <div className={styles.mask}></div>
+                  <div className={styles.text}>
+                    <h1>{item.title}</h1>
+                    <p className="preview_content">{item.preview_content}</p>
+                  </div>
                 </div>
-              </div>
-            </>
-          );
-        }}
-      </Consumer>
-    </div>
-  );
+              </a>
+            </div>
+          </div>
+        );
+      });
+    }
+    if (data.length === 3) {
+      const item = data[0];
+      return (
+        <>
+          <div className={styles.left}>
+            <div className={styles.item}>
+              <a
+                href={`/article/${item.id}`}
+                onClick={(e) => {
+                  onClick(e, item.id);
+                }}
+                className={styles.cover}
+                style={{ backgroundImage: 'url("/imgs/1.jpg")' }}
+              >
+                <div>
+                  <div className={styles.mask}></div>
+                  <div className={styles.text}>
+                    <h1>{item.title}</h1>
+                    <p className="preview_content">{item.preview_content}</p>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <div className={styles.right}>
+            {data.map((item, index) => {
+              if (index) {
+                return (
+                  <div key={item.id} className={styles.item}>
+                    <a
+                      href={`/article/${item.id}`}
+                      onClick={(e) => {
+                        onClick(e, item.id);
+                      }}
+                      className={styles.cover}
+                      style={{ backgroundImage: 'url("/imgs/1.jpg")' }}
+                    >
+                      <div>
+                        <div className={styles.mask}></div>
+                        <div className={styles.text}>
+                          <h1>{item.title}</h1>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                );
+              }
+            })}
+          </div>
+        </>
+      );
+    }
+  };
+
+  return <div className={styles.wrapper}>{renderViews(props.data)}</div>;
 }

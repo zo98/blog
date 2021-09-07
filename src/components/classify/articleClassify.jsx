@@ -1,12 +1,10 @@
 import styles from "@/cStyles/content/contentLatestArticle.module.scss";
-import React, { useEffect } from "react";
-import dayjs from "dayjs";
-import clamp from "clamp-js";
 import { useRouter } from "next/router";
 import Item from "@/components/articleItem.jsx";
 
-export default function contentLatestArticle(props) {
+export default function articleClassify(props) {
   const router = useRouter();
+
   const loadMoreData = () => {
     router.push(
       {
@@ -20,8 +18,8 @@ export default function contentLatestArticle(props) {
 
   return (
     <div className={styles.article}>
-      <div className={styles.title}>
-        <span>最新文章</span>
+      <div className={styles.classify}>
+        {props.data[0] ? props.data[0].classify_name : ""}
       </div>
       <Item data={props.data} />
       <div className={styles.more}>

@@ -1,25 +1,22 @@
 import SiderBar from "@/components/siderBar/siderBar";
 import SiderBarList from "@/components/siderBar/siderBarList";
 import Content from "@/components/content/content";
-import ContentWaterfall from "@/components/content/contentWaterfall";
-import LatestArticle from "@/components/content/contentLatestArticle";
-import Recommend from "@/components/content/contentRecommend";
 import Header from "@/components/header/index";
+import LatestArticle from "@/components/classify/articleClassify";
+import Recommend from "@/components/content/contentRecommend";
 import autoRem from "@/common/autoRem";
 import React from "react";
-import Head from "next/head";
+export const { Provider, Consumer } = React.createContext();
 export default function Index(props) {
   autoRem();
-
   return (
-    <>
+    <Provider value={{ data: props.data }}>
       <main className="main">
         <div className="main-menu">
           <Header data={props.homeData.config} />
         </div>
         <div className="main-content">
           <Content>
-            <ContentWaterfall data={props.homeData.waterfall} />
             <LatestArticle data={props.data} pages={props.pages} />
             <Recommend />
           </Content>
@@ -39,45 +36,43 @@ export default function Index(props) {
           </ul>
         </div>
       </main>
-    </>
+    </Provider>
   );
 }
 
 export async function getServerSideProps(context) {
-  const query = context.query;
-  let pageSize = 10;
-  if (query.limit) {
-    pageSize = query.limit;
+  let { id, limit: pageSize } = context.query;
+  if (!pageSize) {
+    pageSize = 10;
   }
-
   const article = fetch(
-    "http://localhost:8000/api/article/getArticle?pageSize=" + pageSize
+    `http://localhost:8000/api/article/getArticleByClassify?id=${id}?pageSize=${pageSize}`
   ).then((res) => res.json());
 
   const home = fetch("http://localhost:8000/api/blogdata").then((res) =>
     res.json()
   );
-
   let data = [],
-    pages = {},
-    homeData = {};
+    homeData = {},
+    pages = {};
   try {
     const [res1, res2] = await Promise.all([article, home]);
 
     if (res1.code) {
-      const { records, total, pageSize, currentPage } = res1.data;
-      data = records;
-      pages = {
-        total,
-        pageSize,
-        currentPage,
-      };
+      data = res1.data.records;
     }
     if (res2.code) {
       homeData = res2.data;
     }
-    return { props: { data, pages, homeData } };
+    const { total, pageSize, currentPage } = res1.data;
+    pages = {
+      total,
+      pageSize,
+      currentPage,
+    };
+
+    return { props: { data, homeData, pages } };
   } catch (error) {
-    return { props: { data, pages, homeData } };
+    return { props: { data, homeData, pages } };
   }
 }
