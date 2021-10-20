@@ -1,3 +1,5 @@
+// 某个分类下的所有文章
+
 import SiderBar from "@/components/siderBar/siderBar";
 import SiderBarList from "@/components/siderBar/siderBarList";
 import Content from "@/components/content/content";
@@ -15,13 +17,13 @@ export default function Index(props) {
         <div className="main-menu">
           <Header data={props.homeData.config} />
         </div>
-        <div className="main-content">
-          <Content>
+        <main className="main-content">
+          <div className="container">
             <LatestArticle data={props.data} pages={props.pages} />
             <Recommend />
-          </Content>
-        </div>
-        <div className="main-siderbar">
+          </div>
+        </main>
+        <aside className="main-siderbar">
           <ul style={{ position: "fixed" }}>
             <li>
               <SiderBar title="分类目录">
@@ -34,7 +36,7 @@ export default function Index(props) {
               </SiderBar>
             </li>
           </ul>
-        </div>
+        </aside>
       </main>
     </Provider>
   );

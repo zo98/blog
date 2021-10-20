@@ -1,11 +1,9 @@
-// 文章页面
 import SiderBar from "@/components/siderBar/siderBar";
 import SiderBarList from "@/components/siderBar/siderBarList";
-import Content from "@/components/content/content";
 import Header from "@/components/header/index";
-import Article from "@/components/article/index";
+import ClassifyList from "@/components/classify/classifyList";
 import autoRem from "@/common/autoRem";
-import React from "react";
+// 文章分类列表
 export default function Index(props) {
   autoRem();
   return (
@@ -15,7 +13,7 @@ export default function Index(props) {
       </div>
       <div className="main-content">
         <div className="container">
-          <Article data={props.data} />
+          <ClassifyList />
         </div>
       </div>
       <div className="main-siderbar">
@@ -37,9 +35,14 @@ export default function Index(props) {
 }
 
 export async function getServerSideProps(context) {
-  const { id } = context.query;
+  const query = context.query;
+  let pageSize = 10;
+  if (query.limit) {
+    pageSize = query.limit;
+  }
+
   const article = fetch(
-    `http://localhost:8000/api/article/getArticle?id=${id}`
+    "http://localhost:8000/api/article/getArticle?pageSize=" + pageSize
   ).then((res) => res.json());
 
   const home = fetch("http://localhost:8000/api/blogdata").then((res) =>
@@ -47,18 +50,25 @@ export async function getServerSideProps(context) {
   );
 
   let data = [],
-    homeData = [];
+    pages = {},
+    homeData = {};
   try {
     const [res1, res2] = await Promise.all([article, home]);
 
     if (res1.code) {
-      data = res1.data;
+      const { records, total, pageSize, currentPage } = res1.data;
+      data = records;
+      pages = {
+        total,
+        pageSize,
+        currentPage,
+      };
     }
     if (res2.code) {
       homeData = res2.data;
     }
-    return { props: { data, homeData } };
+    return { props: { data, pages, homeData } };
   } catch (error) {
-    return { props: { data, homeData } };
+    return { props: { data, pages, homeData } };
   }
 }

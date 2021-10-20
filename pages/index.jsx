@@ -1,13 +1,13 @@
 import SiderBar from "@/components/siderBar/siderBar";
 import SiderBarList from "@/components/siderBar/siderBarList";
-import Content from "@/components/content/content";
+// import Content from "@/components/content/content";
 import ContentWaterfall from "@/components/content/contentWaterfall";
 import LatestArticle from "@/components/content/contentLatestArticle";
 import Recommend from "@/components/content/contentRecommend";
 import Header from "@/components/header/index";
 import autoRem from "@/common/autoRem";
-import React from "react";
-import Head from "next/head";
+// import React from "react";
+// import Head from "next/head";
 export default function Index(props) {
   autoRem();
 
@@ -18,11 +18,11 @@ export default function Index(props) {
           <Header data={props.homeData.config} />
         </div>
         <div className="main-content">
-          <Content>
+          <div className="container">
             <ContentWaterfall data={props.homeData.waterfall} />
             <LatestArticle data={props.data} pages={props.pages} />
             <Recommend />
-          </Content>
+          </div>
         </div>
         <div className="main-siderbar">
           <ul style={{ position: "fixed" }}>
