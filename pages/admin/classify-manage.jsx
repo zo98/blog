@@ -1,15 +1,20 @@
-import React from "react";
-import { Table, Button, Row, Col, Input, Space } from "antd";
-import { useState, useEffect } from "react";
-import axios from "@/http/service";
+import React, { useState, useEffect } from "react";
+import { Table, Button, Row, Col, Input, Space, Modal, Form } from "antd";
+
+import { classify as classifyApi } from "@/http/api";
 const dayjs = require("dayjs");
 import dynamic from "next/dynamic";
+
 const { Search } = Input;
 // 动态引入
 const Menu = dynamic(() => import("@/components/menu/index.jsx"), {
   ssr: false,
 });
+
+import UploadImage from "@/components/UploadImage.jsx";
 export default function ClassifyManage() {
+  const [currentRow, setCurrentRow] = useState();
+  const [form] = Form.useForm();
   const columns = [
     {
       title: "分类名称",
@@ -41,10 +46,17 @@ export default function ClassifyManage() {
     {
       title: "操作",
       align: "center",
-      render() {
+      render(value) {
         return (
           <Space>
-            <Button size="small">编辑</Button>
+            <Button
+              size="small"
+              onClick={() => {
+                onEdit(value);
+              }}
+            >
+              编辑
+            </Button>
             <Button danger size="small">
               删除
             </Button>
@@ -60,14 +72,12 @@ export default function ClassifyManage() {
     try {
       setLoading(true);
       const { pageSize, currentPage } = pages;
-      const { data } = await axios({
-        url: "/api/classify/getClassify",
-        params: {
-          pageSize,
-          currentPage,
-          keyWords: value,
-          ...params,
-        },
+
+      const { data } = await classifyApi.getClassify({
+        pageSize,
+        currentPage,
+        keyWords: value,
+        ...params,
       });
       if (data.code) {
         const tempPages = {
@@ -90,15 +100,45 @@ export default function ClassifyManage() {
       currentPage: page,
     });
   };
-
+  // 表格数据
   const [data, setData] = useState([]);
+  // 搜索load
   const [loading, setLoading] = useState(false);
+  // 搜索
   const [value, setValue] = useState("");
+  // 弹框
+  const [visible, setVisible] = useState(false);
+  // 分页
   const [pages, setPages] = useState({
     pageSize: 10,
     currentPage: 1,
     total: 0,
   });
+
+  const closeModal = () => {
+    setCurrentRow(undefined);
+    setVisible(false);
+  };
+
+  const onEdit = (value) => {
+    setCurrentRow(value);
+    setVisible(true);
+  };
+  // updated
+  const onFinish = async (values) => {
+    const { id } = currentRow;
+    try {
+      const { data } = await classifyApi.updateClassify({
+        id,
+        ...values,
+      });
+      console.log("res", data);
+    } catch (error) {
+      console.log(error);
+    }
+    console.log(values, currentRow);
+  };
+
   useEffect(async () => {
     loadData();
   }, []);
@@ -107,17 +147,31 @@ export default function ClassifyManage() {
     loadData();
   }, [value]);
 
+  useEffect(() => {
+    currentRow && form.setFieldsValue(currentRow);
+  }, [currentRow]);
+
   return (
     <Menu>
       <Space size={18} direction="vertical" style={{ width: "100%" }}>
         <Row>
-          <Col span="24"></Col>
           <Col span="5">
             <Search
               value={value}
               onChange={inputChange}
               placeholder="分类名称"
             />
+          </Col>
+          <Col offset="17" span="2">
+            <Button
+              onClick={() => {
+                setVisible(true);
+              }}
+              className="rfloat"
+              type="primary"
+            >
+              新增
+            </Button>
           </Col>
         </Row>
         <Table
@@ -134,6 +188,28 @@ export default function ClassifyManage() {
             onChange: pagesChange,
           }}
         />
+
+        <Modal
+          title="添加分类"
+          visible={visible}
+          onCancel={closeModal}
+          onOk={() => {
+            form.submit();
+          }}
+        >
+          <Form onFinish={onFinish} form={form}>
+            <Form.Item
+              label="分类名称"
+              name="name"
+              rules={[{ required: true, message: "请输入分类名称" }]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item label="分类封面" name="cover">
+              <UploadImage />
+            </Form.Item>
+          </Form>
+        </Modal>
       </Space>
     </Menu>
   );

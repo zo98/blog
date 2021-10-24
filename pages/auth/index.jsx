@@ -1,16 +1,12 @@
 // 后台登录页面
 import { Card, Form, Input, Button } from "antd";
 import styles from "@/cStyles/user/login.module.scss";
-import axios from "@/http/service";
+import { user as userApi } from "@/http/api";
 
 export default function Index() {
   const login = (data) => {
-    console.log(data);
-    axios({
-      url: "/api/user/login",
-      method: "POST",
-      data,
-    })
+    userApi
+      .login(data)
       .then((res) => {
         if (res.data.data) {
           localStorage.token = res.data.data.token;

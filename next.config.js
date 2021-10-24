@@ -9,6 +9,10 @@ module.exports = {
         source: "/api/:path*",
         destination: "http://localhost:8000/api/:path*",
       },
+      {
+        source: "/sources/:path*",
+        destination: "http://localhost:8000/sources/:path*",
+      },
     ];
   },
   pageExtensions: ["jsx", "js"],

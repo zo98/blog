@@ -1,5 +1,5 @@
 import styles from "@/cStyles/content/contentRecommend.module.scss";
-export default function contentRecommend() {
+export default function contentRecommend(props) {
   return (
     <div className={styles.recommend}>
       <div className={styles.title}>

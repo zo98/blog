@@ -13,7 +13,7 @@ export default function contentLatestArticle(props) {
           key={img}
           className={styles.img}
           style={{
-            backgroundImage: `url("http://localhost:8000/sources/images/${img}")`,
+            backgroundImage: `url(/sources/images/${img})`,
           }}
         ></div>
       ));
