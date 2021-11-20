@@ -2,7 +2,7 @@
 
 import SiderBar from "@/components/siderBar/siderBar";
 import SiderBarList from "@/components/siderBar/siderBarList";
-import Content from "@/components/content/content";
+import Head from 'next/head'
 import Header from "@/components/header/index";
 import LatestArticle from "@/components/classify/articleClassify";
 import Recommend from "@/components/content/contentRecommend";
@@ -14,6 +14,10 @@ export default function Index(props) {
   return (
     <Provider value={{ data: props.data }}>
       <main className="main">
+      <Head>
+        <title>{props.data[0] ? props.data[0].classify_name : ""}</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
         <div className="main-menu">
           <Header data={props.homeData.config} />
         </div>

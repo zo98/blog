@@ -20,13 +20,13 @@ export default function Siderbar(props) {
     router.push(url);
   };
   return (
-    <div className={styles.wrapper} style={{ width: props.siderBarWidth }}>
+    <aside className={styles.wrapper} style={{ width: props.siderBarWidth }}>
       <div className={styles.header}>
         <h4 className={styles.title} onClick={goTo}>
           {props.title}
         </h4>
       </div>
       <div className={styles.content}>{props.children}</div>
-    </div>
+    </aside>
   );
 }

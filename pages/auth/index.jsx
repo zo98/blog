@@ -2,15 +2,23 @@
 import { Card, Form, Input, Button } from "antd";
 import styles from "@/cStyles/user/login.module.scss";
 import { user as userApi } from "@/http/api";
+import { useRouter } from "next/router";
 
 export default function Index() {
+  const router = useRouter();
   const login = (data) => {
     userApi
       .login(data)
       .then((res) => {
         if (res.data.data) {
-          localStorage.token = res.data.data.token;
-          location.href = "/admin";
+          const token = res.data.data.token;
+          localStorage.token = token;
+          router.push({
+            pathname: "/admin",
+            query: {
+              token,
+            },
+          });
         }
       })
       .catch((err) => {});

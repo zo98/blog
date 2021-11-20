@@ -1,6 +1,6 @@
 import { Editor } from "@tinymce/tinymce-react";
 import React, { Component } from "react";
-
+import axios from "axios";
 export default class TinymceEditor extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +21,7 @@ export default class TinymceEditor extends Component {
             language: "zh_CN",
             language_url: "/tinymce/langs/zh_CN.js",
             fontsize_formats: "12px 14px 16px 18px 24px 36px 48px 56px 72px",
-            min_height:'300',
+            min_height: "300",
             plugins:
               "preview searchreplace autolink directionality visualblocks visualchars fullscreen image  link media template code codesample table charmap hr pagebreak nonbreaking anchor insertdatetime advlist lists wordcount  textpattern help emoticons autosave  indent2em autoresize  ",
             toolbar:
@@ -31,7 +31,10 @@ export default class TinymceEditor extends Component {
             content_style:
               "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
             tinymceScriptSrc: "/tinymce/tinymce.min.js",
-            images_upload_url:"/api/upload/uploadimg"
+            // images_upload_url:"/api/upload/uploadimg"
+            images_upload_handler: (blobInfo, succFun, failFun) => {
+              console.log(blobInfo, succFun, failFun);
+            },
           }}
         />
       </>

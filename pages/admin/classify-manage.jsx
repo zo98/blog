@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button, Row, Col, Input, Space, Modal, Form } from "antd";
+import { verifyToken } from "@/common/verifyToken";
 
 import { classify as classifyApi } from "@/http/api";
 const dayjs = require("dayjs");
 import dynamic from "next/dynamic";
-
+import Head from "next/head";
 const { Search } = Input;
 // 动态引入
 const Menu = dynamic(() => import("@/components/menu/index.jsx"), {
@@ -153,6 +154,10 @@ export default function ClassifyManage() {
 
   return (
     <Menu>
+      <Head>
+        <title>后台管理-分类管理</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Space size={18} direction="vertical" style={{ width: "100%" }}>
         <Row>
           <Col span="5">
@@ -183,8 +188,6 @@ export default function ClassifyManage() {
             position: ["bottomRight"],
             total: pages.total,
             size: "small",
-            // 只有一页时隐藏分页器
-            hideOnSinglePage: true,
             onChange: pagesChange,
           }}
         />
@@ -213,4 +216,9 @@ export default function ClassifyManage() {
       </Space>
     </Menu>
   );
+}
+
+export async function getServerSideProps(context) {
+  const query = context.query;
+  return await verifyToken(query.token);
 }

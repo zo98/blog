@@ -6,13 +6,19 @@ import LatestArticle from "@/components/content/contentLatestArticle";
 import Recommend from "@/components/content/contentRecommend";
 import Header from "@/components/header/index";
 import autoRem from "@/common/autoRem";
+import { BackTop } from "antd";
 // import React from "react";
-// import Head from "next/head";
+import Head from "next/head";
 export default function Index(props) {
   autoRem();
 
   return (
     <>
+      <BackTop />
+      <Head>
+        <title>首页</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <main className="main">
         <div className="main-menu">
           <Header data={props.homeData.config} />

@@ -2,7 +2,7 @@ import styles from "@/cStyles/header/index.module.scss";
 export default function Index(props) {
   let { ipc, menu, blog, contact } = props.data;
   return (
-    <div className={styles.container}>
+    <aside className={styles.container}>
       <div className={styles.shadow}>
         <div className={styles.header}>
           <div className={styles.profile}>
@@ -107,6 +107,6 @@ export default function Index(props) {
           ""
         )}
       </div>
-    </div>
+    </aside>
   );
 }

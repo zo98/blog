@@ -1,15 +1,21 @@
 // 文章页面
 import SiderBar from "@/components/siderBar/siderBar";
 import SiderBarList from "@/components/siderBar/siderBarList";
-import Content from "@/components/content/content";
 import Header from "@/components/header/index";
 import Article from "@/components/article/index";
 import autoRem from "@/common/autoRem";
 import React from "react";
+import { BackTop } from "antd";
+import Head from "next/head";
 export default function Index(props) {
   autoRem();
   return (
     <main className="main">
+      <BackTop />
+      <Head>
+        <title>{props.data[0].title}</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <div className="main-menu">
         <Header data={props.homeData.config} />
       </div>
