@@ -15,13 +15,13 @@
 
 ## 截图
 
-![image-20211120203842165](D:\Jong\Documents\Code\blog\README.assets\image-20211120203842165.png)
+![image-20211120203842165](https://raw.githubusercontent.com/flying-98/blog/dev/README.assets/image-20211120203842165.png)
 
-![image-20211120203915783](D:\Jong\Documents\Code\blog\README.assets\image-20211120203915783.png)
+![image-20211120203915783](https://raw.githubusercontent.com/flying-98/blog/dev/README.assets/image-20211120203915783.png)
 
-![image-20211120204029785](D:\Jong\Documents\Code\blog\README.assets\image-20211120204029785.png)
+![image-20211120204029785](https://raw.githubusercontent.com/flying-98/blog/dev/README.assets/image-20211120204029785.png)
 
-![image-20211120204047950](D:\Jong\Documents\Code\blog\README.assets\image-20211120204047950.png)
+![image-20211120204047950](https://raw.githubusercontent.com/flying-98/blog/dev/README.assets/image-20211120204047950.png)
 
-![image-20211120204106133](D:\Jong\Documents\Code\blog\README.assets\image-20211120204106133.png)
+![image-20211120204106133](https://raw.githubusercontent.com/flying-98/blog/dev/README.assets/image-20211120204106133.png)
 
