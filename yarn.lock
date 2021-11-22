@@ -405,6 +405,21 @@
   resolved "https://registry.nlark.com/@humanwhocodes/object-schema/download/@humanwhocodes/object-schema-1.2.0.tgz#87de7af9c231826fdd68ac7258f77c429e0e5fcf"
   integrity sha1-h956+cIxgm/daKxyWPd8Qp4OX88=
 
+"@monaco-editor/loader@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.npmmirror.com/@monaco-editor/loader/download/@monaco-editor/loader-1.2.0.tgz#373fad69973384624e3d9b60eefd786461a76acd"
+  integrity sha1-Nz+taZczhGJOPZtg7v14ZGGnas0=
+  dependencies:
+    state-local "^1.0.6"
+
+"@monaco-editor/react@^4.3.1":
+  version "4.3.1"
+  resolved "https://registry.npmmirror.com/@monaco-editor/react/download/@monaco-editor/react-4.3.1.tgz#d65bcbf174c39b6d4e7fec43d0cddda82b70a12a"
+  integrity sha1-1lvL8XTDm21Of+xD0M3dqCtwoSo=
+  dependencies:
+    "@monaco-editor/loader" "^1.2.0"
+    prop-types "^15.7.2"
+
 "@next/env@10.2.3":
   version "10.2.3"
   resolved "https://registry.nlark.com/@next/env/download/@next/env-10.2.3.tgz#ede3bbe68cec9939c37168ea2077f9adbc68334e"
@@ -1043,6 +1058,11 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.npm.taobao.org/code-point-at/download/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
+
+codemirror@^5.63.3:
+  version "5.63.3"
+  resolved "https://registry.npmmirror.com/codemirror/download/codemirror-5.63.3.tgz#97042a242027fe0c87c09b36bc01931d37b76527"
+  integrity sha1-lwQqJCAn/gyHwJs2vAGTHTe3ZSc=
 
 color-convert@^1.9.0:
   version "1.9.3"
@@ -3370,6 +3390,11 @@ rc-virtual-list@^3.0.1, rc-virtual-list@^3.2.0:
     rc-resize-observer "^1.0.0"
     rc-util "^5.0.7"
 
+react-codemirror2@^7.2.1:
+  version "7.2.1"
+  resolved "https://registry.nlark.com/react-codemirror2/download/react-codemirror2-7.2.1.tgz#38dab492fcbe5fb8ebf5630e5bb7922db8d3a10c"
+  integrity sha1-ONq0kvy+X7jr9WMOW7eSLbjToQw=
+
 react-dom@17.0.2:
   version "17.0.2"
   resolved "https://registry.nlark.com/react-dom/download/react-dom-17.0.2.tgz?cache=0&sync_timestamp=1622219430476&other_urls=https%3A%2F%2Fregistry.nlark.com%2Freact-dom%2Fdownload%2Freact-dom-17.0.2.tgz#ecffb6845e3ad8dbfcdc498f0d0a939736502c23"
@@ -3754,6 +3779,11 @@ stacktrace-parser@0.1.10:
   integrity sha1-KfsMrk4NC4UVWHlAKFehY562BRo=
   dependencies:
     type-fest "^0.7.1"
+
+state-local@^1.0.6:
+  version "1.0.7"
+  resolved "https://registry.nlark.com/state-local/download/state-local-1.0.7.tgz#da50211d07f05748d53009bee46307a37db386d5"
+  integrity sha1-2lAhHQfwV0jVMAm+5GMHo32zhtU=
 
 "statuses@>= 1.5.0 < 2":
   version "1.5.0"

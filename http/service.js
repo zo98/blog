@@ -27,7 +27,7 @@ service.interceptors.response.use(
           if (!window.message) {
             window.message = true;
             message.warning("请先登陆");
-            location.href = "/auth";
+            // location.href = "/auth"
           }
           break;
         // case 404:

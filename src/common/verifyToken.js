@@ -4,7 +4,7 @@ async function verifyToken(token) {
       Authorization: "Bear " + token,
     },
   });
-  console.log('response',response);
+
   const { status } = response;
   switch (status) {
     case 401:

@@ -33,7 +33,6 @@ export default class TinymceEditor extends Component {
             tinymceScriptSrc: "/tinymce/tinymce.min.js",
             // images_upload_url:"/api/upload/uploadimg"
             images_upload_handler: (blobInfo, succFun, failFun) => {
-              console.log(blobInfo, succFun, failFun);
             },
           }}
         />

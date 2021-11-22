@@ -133,11 +133,7 @@ export default function ClassifyManage() {
         id,
         ...values,
       });
-      console.log("res", data);
-    } catch (error) {
-      console.log(error);
-    }
-    console.log(values, currentRow);
+    } catch (error) {}
   };
 
   useEffect(async () => {

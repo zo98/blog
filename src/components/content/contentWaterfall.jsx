@@ -11,7 +11,6 @@ export default function contentWaterfall(props) {
 
   const onClick = (e, id) => {
     e.preventDefault();
-    console.log(e, id);
   };
 
   const renderViews = (data) => {

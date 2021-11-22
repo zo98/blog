@@ -1,8 +1,17 @@
 import React from "react";
-import { UploadOutlined } from "@ant-design/icons";
-import { Upload, Image, Button } from "antd";
+import { Upload, Image } from "antd";
+import {
+  LoadingOutlined,
+  PlusOutlined,
+  UploadOutlined,
+} from "@ant-design/icons";
+
 export default function UploadImage(props) {
-  console.log(props);
+  const uploadButton = (
+    <div>
+      <UploadOutlined />
+    </div>
+  );
   return (
     <>
       <Upload
@@ -15,10 +24,15 @@ export default function UploadImage(props) {
             props?.onChange(file.file.response);
           }
         }}
+        listType="picture-card"
+        showUploadList={false}
+        headers={{
+          Authorization: "Bear " + localStorage.token,
+        }}
       >
-        <Button icon={<UploadOutlined />}>上传</Button>
+        {uploadButton}
       </Upload>
-      {props.value ? <Image src={props.value} /> : null}
+      {/* {props.value ? <Image src={props.value} /> : null} */}
     </>
   );
 }

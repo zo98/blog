@@ -7,12 +7,14 @@ import styles from "@/cStyles/menu/menu.module.scss";
 export default function Index(props) {
   const router = useRouter();
   const clickMenu = ({ key }) => {
-    router.push({
-      pathname: key,
-      query: {
-        token: localStorage.token,
+    router.push(
+      {
+        pathname: key,
+        query: {
+          token: localStorage.token,
+        },
       },
-    });
+    );
   };
   const getSelectedKeys = () => {
     const temp = menuConfig.filter((item) => item.path === location.pathname);
