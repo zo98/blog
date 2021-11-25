@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Row, Col, Input, Space, Modal, Form } from "antd";
+import {
+  Table,
+  Button,
+  Row,
+  Col,
+  Input,
+  Space,
+  Modal,
+  Form,
+  message,
+  notification,
+} from "antd";
 import { verifyToken } from "@/common/verifyToken";
 
 import { classify as classifyApi } from "@/http/api";
@@ -58,7 +69,13 @@ export default function ClassifyManage() {
             >
               编辑
             </Button>
-            <Button danger size="small">
+            <Button
+              danger
+              onClick={() => {
+                deleteClassify(value.id);
+              }}
+              size="small"
+            >
               删除
             </Button>
           </Space>
@@ -73,7 +90,6 @@ export default function ClassifyManage() {
     try {
       setLoading(true);
       const { pageSize, currentPage } = pages;
-
       const { data } = await classifyApi.getClassify({
         pageSize,
         currentPage,
@@ -101,6 +117,22 @@ export default function ClassifyManage() {
       currentPage: page,
     });
   };
+  const deleteClassify = async (id) => {
+    try {
+      const { data } = await classifyApi.deleteClassify({ id });
+      if (data.code) {
+        message.success("删除成功");
+        loadData()
+      } else {
+        message.error("删除失败");
+      }
+    } catch (error) {
+      notification.error({
+        message:'',
+        description: error.message,
+      });
+    }
+  };
   // 表格数据
   const [data, setData] = useState([]);
   // 搜索load
@@ -127,8 +159,9 @@ export default function ClassifyManage() {
   };
   // updated
   const onFinish = async (values) => {
-    const { id } = currentRow;
+    const { id } = currentRow || {};
     try {
+      console.log({ ...values });
       const { data } = await classifyApi.updateClassify({
         id,
         ...values,
