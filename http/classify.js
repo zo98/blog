@@ -14,6 +14,7 @@ export default {
       params,
     });
   },
+
   deleteClassify(data) {
     return axios({
       url: "/api/classify/deleteClassify",

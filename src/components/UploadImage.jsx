@@ -1,15 +1,16 @@
 import React from "react";
-import { Upload } from "antd";
+import { Upload, Image, Button } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 
 export default function UploadImage(props) {
+  console.log(props);
   return (
     <>
       <Upload
         accept="image/*"
         maxCount={1}
         action="/api/upload/uploadimg"
-        listType="picture-card"
+        showUploadList={false}
         onChange={(file) => {
           if (file.file.response) {
             props?.onChange(file.file.response.location);
@@ -19,7 +20,11 @@ export default function UploadImage(props) {
           Authorization: "Bear " + localStorage.token,
         }}
       >
-        {<UploadOutlined />}
+        {props.value ? (
+          <img width={200} src={props.value} />
+        ) : (
+          <Button icon={<UploadOutlined />}></Button>
+        )}
       </Upload>
     </>
   );

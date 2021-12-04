@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import clamp from "clamp-js";
 
 export default function contentWaterfall(props) {
+  console.log(props);
   useEffect(() => {
     [...document.getElementsByClassName("preview_content")].forEach((node) => {
       clamp(node, { clamp: 3 });
@@ -11,6 +12,13 @@ export default function contentWaterfall(props) {
 
   const onClick = (e, id) => {
     e.preventDefault();
+  };
+
+  const getImg = (arr = []) => {
+    if (arr.length) {
+      return `url("/sources/images/${arr[0]}")`;
+    }
+    return 'url("/imgs/1.jpg")';
   };
 
   const renderViews = (data) => {
@@ -25,7 +33,7 @@ export default function contentWaterfall(props) {
                   onClick(e, item.id);
                 }}
                 className={styles.cover}
-                style={{ backgroundImage: 'url("/imgs/1.jpg")' }}
+                style={{ backgroundImage: getImg(item.imgs) }}
               >
                 <div>
                   <div className={styles.mask}></div>
@@ -52,7 +60,7 @@ export default function contentWaterfall(props) {
                   onClick(e, item.id);
                 }}
                 className={styles.cover}
-                style={{ backgroundImage: 'url("/imgs/1.jpg")' }}
+                style={{ backgroundImage: getImg(item.img) }}
               >
                 <div>
                   <div className={styles.mask}></div>
@@ -76,7 +84,7 @@ export default function contentWaterfall(props) {
                         onClick(e, item.id);
                       }}
                       className={styles.cover}
-                      style={{ backgroundImage: 'url("/imgs/1.jpg")' }}
+                      style={{ backgroundImage: getImg(item.img) }}
                     >
                       <div>
                         <div className={styles.mask}></div>

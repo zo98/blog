@@ -122,13 +122,13 @@ export default function ClassifyManage() {
       const { data } = await classifyApi.deleteClassify({ id });
       if (data.code) {
         message.success("删除成功");
-        loadData()
+        loadData();
       } else {
         message.error("删除失败");
       }
     } catch (error) {
       notification.error({
-        message:'',
+        message: "",
         description: error.message,
       });
     }
@@ -166,6 +166,12 @@ export default function ClassifyManage() {
         id,
         ...values,
       });
+      if (data.code) {
+        message.success("保存成功");
+        setVisible(false);
+      } else {
+        message.error("保存失败");
+      }
     } catch (error) {}
   };
 
@@ -200,6 +206,7 @@ export default function ClassifyManage() {
             <Button
               onClick={() => {
                 setVisible(true);
+                form.resetFields();
               }}
               className="rfloat"
               type="primary"

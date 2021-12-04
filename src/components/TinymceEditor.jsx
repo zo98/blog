@@ -1,6 +1,6 @@
 import { Editor } from "@tinymce/tinymce-react";
 import React, { Component } from "react";
-import axios from "axios";
+import axios from "@/http/service";
 export default class TinymceEditor extends Component {
   constructor(props) {
     super(props);
@@ -8,6 +8,26 @@ export default class TinymceEditor extends Component {
   onEditorChange = (value) => {
     this.props.onChange?.(value);
   };
+  images_upload_handler = (blobInfo, succFun, failFun, progress) => {
+    console.log(blobInfo, succFun, failFun, progress);
+    const formData = new FormData();
+    formData.append("file", blobInfo.blob(), blobInfo.filename());
+    axios({
+      url: "/api/upload/uploadimg",
+      method: "POST",
+      data: formData,
+      onUploadProgress: function (progressEvent) {
+        progress(progressEvent.loaded / progressEvent.total);
+      },
+    })
+      .then((res) => {
+        succFun(".." + res.data.location);
+      })
+      .catch((err) => {
+        failure("HTTP Error: " + err.status);
+      });
+  };
+
   render() {
     return (
       <>
@@ -32,8 +52,7 @@ export default class TinymceEditor extends Component {
               "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
             tinymceScriptSrc: "/tinymce/tinymce.min.js",
             // images_upload_url:"/api/upload/uploadimg"
-            images_upload_handler: (blobInfo, succFun, failFun) => {
-            },
+            images_upload_handler: this.images_upload_handler,
           }}
         />
       </>

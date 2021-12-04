@@ -7,7 +7,7 @@ import Recommend from "@/components/content/contentRecommend";
 import Header from "@/components/header/index";
 import autoRem from "@/common/autoRem";
 import { BackTop } from "antd";
-// import React from "react";
+import { getArticles, getHomeData, getHotClassify } from "@/http/serviceSide";
 import Head from "next/head";
 export default function Index(props) {
   autoRem();
@@ -16,8 +16,7 @@ export default function Index(props) {
     <>
       <BackTop />
       <Head>
-        <title>首页</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <title key="title">首页</title>
       </Head>
       <main className="main">
         <div className="main-menu">
@@ -27,7 +26,7 @@ export default function Index(props) {
           <div className="container">
             <ContentWaterfall data={props.homeData.waterfall} />
             <LatestArticle data={props.data} pages={props.pages} />
-            <Recommend />
+            <Recommend data={props.hotClassifyData} />
           </div>
         </div>
         <div className="main-siderbar">
@@ -56,34 +55,21 @@ export async function getServerSideProps(context) {
     pageSize = query.limit;
   }
 
-  const article = fetch(
-    "http://localhost:8000/api/article/getArticle?pageSize=" + pageSize
-  ).then((res) => res.json());
+  const [article, home, hotClassify] = await Promise.all([
+    getArticles({ pageSize }),
+    getHomeData(),
+    getHotClassify(),
+  ]);
 
-  const home = fetch("http://localhost:8000/api/blogdata").then((res) =>
-    res.json()
-  );
+  const { records, total, pageSize: pageSizeS, currentPage } = article.data;
+  const data = records;
+  const pages = {
+    total,
+    pageSize: pageSizeS,
+    currentPage,
+  };
 
-  let data = [],
-    pages = {},
-    homeData = {};
-  try {
-    const [res1, res2] = await Promise.all([article, home]);
-
-    if (res1.code) {
-      const { records, total, pageSize, currentPage } = res1.data;
-      data = records;
-      pages = {
-        total,
-        pageSize,
-        currentPage,
-      };
-    }
-    if (res2.code) {
-      homeData = res2.data;
-    }
-    return { props: { data, pages, homeData } };
-  } catch (error) {
-    return { props: { data, pages, homeData } };
-  }
+  const homeData = home.data;
+  const hotClassifyData = hotClassify.data.records;
+  return { props: { data, pages, homeData, hotClassifyData } };
 }

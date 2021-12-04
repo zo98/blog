@@ -1,7 +1,1 @@
-function upload(params) {
-  
-}
 
-export {
-
-}

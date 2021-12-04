@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Form, Input, Space, Button } from "antd";
+import { Form, Input, Space, Button, message } from "antd";
 import UploadImage from "@/components/UploadImage.jsx";
 import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import { system } from "@/http/api";
@@ -23,10 +23,10 @@ export default function systemEdit() {
               key={key}
               style={{ display: "flex" }}
             >
-              <Form.Item name={[name, "name"]}>
+              <Form.Item name={[name, "name"]} label="名称">
                 <Input />
               </Form.Item>
-              <Form.Item name={[name, "url"]}>
+              <Form.Item name={[name, "url"]} label="url">
                 <Input />
               </Form.Item>
               <MinusCircleOutlined onClick={() => remove(name)} />
@@ -50,16 +50,16 @@ export default function systemEdit() {
         {fields.map(({ key, name, fieidKey, ...restFieid }) => (
           <div key={key}>
             <Space size={20} align="baseline" style={{ display: "flex" }}>
-              <Form.Item name={[name, "name"]}>
+              <Form.Item name={[name, "name"]} label="title">
                 <Input />
               </Form.Item>
-              <Form.Item name={[name, "url"]}>
+              <Form.Item name={[name, "url"]} label="url">
                 <Input />
               </Form.Item>
               <MinusCircleOutlined onClick={() => remove(name)} />
             </Space>
 
-            <Form.Item name={[name, "icon"]}>
+            <Form.Item name={[name, "icon"]} label="icon">
               <Input.TextArea rows={10} />
             </Form.Item>
           </div>
@@ -77,7 +77,13 @@ export default function systemEdit() {
   };
 
   const onFinish = (values) => {
-    system.updateSystemInfo(values);
+    system.updateSystemInfo(values).then((res) => {
+      if (res.code) {
+        message.success("保存成功");
+      } else {
+        message.error("保存失败");
+      }
+    });
   };
 
   return (
@@ -110,7 +116,7 @@ export default function systemEdit() {
             <Input />
           </Form.Item>
           <Form.Item name={["ipc", "url"]}>
-            <Input />
+            <Input placeholder="url" />
           </Form.Item>
         </Form.Item>
         <Form.Item>

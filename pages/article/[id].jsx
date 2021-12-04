@@ -7,14 +7,15 @@ import autoRem from "@/common/autoRem";
 import React from "react";
 import { BackTop } from "antd";
 import Head from "next/head";
+import { getServerSide } from "@/http/serviceSide";
+
 export default function Index(props) {
   autoRem();
   return (
     <main className="main">
       <BackTop />
       <Head>
-        <title>{props.data[0].title}</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <title key="title">{props.data[0].title}</title>
       </Head>
       <div className="main-menu">
         <Header data={props.homeData.config} />

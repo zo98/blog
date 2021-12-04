@@ -216,7 +216,7 @@ class ArticleEdit extends Component {
                   <Row>
                     <Col span={4}>
                       <Space>
-                        <Button type="ghost">保存为草稿</Button>
+                        {/* <Button type="ghost">保存为草稿</Button> */}
                         <Button type="primary" htmlType="submit">
                           {router.query.id ? "保存" : "发表"}
                         </Button>
