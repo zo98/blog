@@ -69,7 +69,7 @@ export default function ClassifyManage(props) {
               onClick={() => {
                 router.push({
                   pathname: "/admin/article-manage",
-                  query: { id },
+                  query: { id, token: localStorage.token },
                 });
               }}
             >
@@ -154,8 +154,6 @@ export default function ClassifyManage(props) {
             position: ["bottomRight"],
             total: pages.total,
             size: "small",
-            // 只有一页时隐藏分页器
-            hideOnSinglePage: true,
             onChange: pagesChange,
           }}
         />

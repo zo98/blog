@@ -1,10 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Row, Col, Input, Space, Modal, Form } from "antd";
+import {
+  Table,
+  Button,
+  Row,
+  Col,
+  Input,
+  Space,
+  Modal,
+  Form,
+  message,
+  notification,
+} from "antd";
+import { verifyToken } from "@/common/verifyToken";
 
 import { classify as classifyApi } from "@/http/api";
 const dayjs = require("dayjs");
 import dynamic from "next/dynamic";
-
+import Head from "next/head";
 const { Search } = Input;
 // 动态引入
 const Menu = dynamic(() => import("@/components/menu/index.jsx"), {
@@ -57,7 +69,13 @@ export default function ClassifyManage() {
             >
               编辑
             </Button>
-            <Button danger size="small">
+            <Button
+              danger
+              onClick={() => {
+                deleteClassify(value.id);
+              }}
+              size="small"
+            >
               删除
             </Button>
           </Space>
@@ -72,7 +90,6 @@ export default function ClassifyManage() {
     try {
       setLoading(true);
       const { pageSize, currentPage } = pages;
-
       const { data } = await classifyApi.getClassify({
         pageSize,
         currentPage,
@@ -100,6 +117,22 @@ export default function ClassifyManage() {
       currentPage: page,
     });
   };
+  const deleteClassify = async (id) => {
+    try {
+      const { data } = await classifyApi.deleteClassify({ id });
+      if (data.code) {
+        message.success("删除成功");
+        loadData()
+      } else {
+        message.error("删除失败");
+      }
+    } catch (error) {
+      notification.error({
+        message:'',
+        description: error.message,
+      });
+    }
+  };
   // 表格数据
   const [data, setData] = useState([]);
   // 搜索load
@@ -126,17 +159,14 @@ export default function ClassifyManage() {
   };
   // updated
   const onFinish = async (values) => {
-    const { id } = currentRow;
+    const { id } = currentRow || {};
     try {
+      console.log({ ...values });
       const { data } = await classifyApi.updateClassify({
         id,
         ...values,
       });
-      console.log("res", data);
-    } catch (error) {
-      console.log(error);
-    }
-    console.log(values, currentRow);
+    } catch (error) {}
   };
 
   useEffect(async () => {
@@ -153,6 +183,10 @@ export default function ClassifyManage() {
 
   return (
     <Menu>
+      <Head>
+        <title>后台管理-分类管理</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Space size={18} direction="vertical" style={{ width: "100%" }}>
         <Row>
           <Col span="5">
@@ -183,8 +217,6 @@ export default function ClassifyManage() {
             position: ["bottomRight"],
             total: pages.total,
             size: "small",
-            // 只有一页时隐藏分页器
-            hideOnSinglePage: true,
             onChange: pagesChange,
           }}
         />
@@ -213,4 +245,9 @@ export default function ClassifyManage() {
       </Space>
     </Menu>
   );
+}
+
+export async function getServerSideProps(context) {
+  const query = context.query;
+  return await verifyToken(query.token);
 }
