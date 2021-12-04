@@ -30,12 +30,12 @@ export default function contentLatestArticle(props) {
             <>
               <a href={`/article/${item.id}`}>
                 <h1 className={styles.item_title}>{item.title}</h1>
-                <main
+                <div
                   className={`${styles.item_content} item_content`}
                   dangerouslySetInnerHTML={{
                     __html: item.preview_content,
                   }}
-                ></main>
+                ></div>
               </a>
               <a href={`/article/${item.id}`}>
                 <div className={styles.imgs}>{renderImgs(item.imgs)}</div>
